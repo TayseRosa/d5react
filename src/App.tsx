@@ -4,23 +4,33 @@ import { Item } from './types/Item';
 
 //Components
 import { ListItem } from './components/ListItem';
- }
+import { AddArea } from './components/AddArea';
 
 const App = () => {
 
   const [ list, setList ] = useState<Item[]>([
-    { id: 1, name: "Estudar React JS", done: true },
-    { id: 2, name: "Estudar React Native", done: false },
-    { id: 3, name: "Fazer Café", done: true },
-    { id: 4, name: "Comprar pão e frios na padaria", done: false },
+    
   ]);
+
+  const handleAddTask = ( taskName: string ) => {
+    //clone
+    let newList = [...list];
+    //add clone
+    newList.push({
+      id: list.length + 1,
+      name: taskName,
+      done: false
+    });
+    //atualiza a list
+    setList(newList);
+  }
 
   return(
     <C.Container>
       <C.Area> 
         <C.Header> Tayse's toDo List </C.Header>  
 
-        
+        <AddArea onEnter={ handleAddTask } />
 
         { list.map(( item, index )=> (
           <ListItem 
